@@ -6,10 +6,13 @@ import {
   signInStart,
   signInSuccess,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { error, loading } = useSelector((store) => store.user);
+
+  const { loading, error } = useSelector((store) => store.user);
+  console.log("error->" + typeof error);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,14 +71,17 @@ export default function SignIn() {
           >
             {loading ? "Loading..." : "Sign in"}
           </button>
+          <OAuth />
         </form>
         <div className=" flex gap-2 my-3 ">
-          <p>Dont have an account? </p>
+          <p>Don have an account? </p>
           <Link to={"/sign-up"}>
             <span className=" text-blue-700 font-medium"> Sign up</span>
           </Link>
         </div>
-        {error && <p className=" text-red-500 mt-5"> {error} </p>}
+        {error && (
+          <p className=" text-red-500 mt-5"> {JSON.stringify.error} </p>
+        )}
       </div>
     </div>
   );
