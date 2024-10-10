@@ -14,7 +14,7 @@ export default function Header() {
             </h1>
           </div>
         </Link>
-        <form className=" bg-slate-50 px-3 py-1 rounded-lg flex items-center">
+        <form className=" bg-slate-50 px-3 py-1 rounded-3xl flex items-center">
           <input
             type="text"
             placeholder="search destinations"
