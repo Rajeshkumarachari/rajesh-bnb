@@ -21,7 +21,7 @@ export default function Header() {
           <input
             type="text"
             placeholder="search destinations"
-            className=" bg-transparent focus:outline-none w-24 sm:w-64"
+            className=" bg-transparent focus:outline-none w-24 px-3 sm:w-64"
           />
           <FaSearch className="text-slate-100 bg-rose-500 size-10 p-3 rounded-full cursor-pointer" />
         </form>
@@ -38,11 +38,13 @@ export default function Header() {
           </Link>
 
           {currentUser ? (
-            <img
-              src={currentUser.avatar}
-              alt="profile"
-              className=" rounded-full size-9 object-cover cursor-pointer"
-            />
+            <Link to="/profile">
+              <img
+                src={currentUser.avatar}
+                alt="profile"
+                className=" rounded-full size-9 object-cover cursor-pointer"
+              />
+            </Link>
           ) : (
             <Link to="sign-in">
               <li className=" text-slate-700  hover:bg-slate-200 px-3 py-2 rounded-3xl  cursor-pointer ">
