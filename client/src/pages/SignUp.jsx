@@ -36,8 +36,8 @@ export default function SignUp() {
     }
   };
   return (
-    <div className=" max-w-lg mx-auto p-3 rounded-lg  ">
-      <div className="shadow-lg px-4  flex justify-center flex-col">
+    <div className=" max-w-lg mx-auto rounded-lg bg-gray-50 mt-5 ">
+      <div className="shadow-lg p-4   flex justify-center flex-col">
         <h1 className=" text-2xl text-center font-medium my-2">Sign Up</h1>
         <hr className=" mt-2" />
         <h1 className=" text-2xl font-medium text-gray-800 my-4">
