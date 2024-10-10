@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/favicon-bnb.ico";
 import { FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { currentUser } = useSelector((store) => store.user);
+
   return (
     <header className=" bg-slate-100 shadow-md">
       <div className="flex  justify-between items-center max-w-6xl mx-auto  p-3">
@@ -33,11 +36,20 @@ export default function Header() {
               About
             </li>
           </Link>
-          <Link to="sign-in">
-            <li className=" text-slate-700  hover:bg-slate-200 px-3 py-2 rounded-3xl  cursor-pointer ">
-              Sign in
-            </li>
-          </Link>
+
+          {currentUser ? (
+            <img
+              src={currentUser.avatar}
+              alt="profile"
+              className=" rounded-full size-9 object-cover cursor-pointer"
+            />
+          ) : (
+            <Link to="sign-in">
+              <li className=" text-slate-700  hover:bg-slate-200 px-3 py-2 rounded-3xl  cursor-pointer ">
+                Sign in
+              </li>
+            </Link>
+          )}
         </ul>
       </div>
     </header>
