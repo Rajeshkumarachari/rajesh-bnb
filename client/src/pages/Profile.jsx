@@ -13,6 +13,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 export default function Profile() {
@@ -86,6 +89,22 @@ export default function Profile() {
     setUpdateSuccess(false);
   }, 3000);
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
   return (
     <div className=" bg-slate-50 w-[40%] my-4  mx-auto rounded-lg shadow-md">
       <div className=" pb-9">
@@ -153,7 +172,10 @@ export default function Profile() {
           </button>
         </form>
         <div className=" flex justify-between mx-7 mt-4">
-          <span className="flex items-center gap-2 text-red-700 cursor-pointer  text-lg font-medium px-2 py-1 hover:bg-red-100 rounded-lg">
+          <span
+            className="flex items-center gap-2 text-red-700 cursor-pointer  text-lg font-medium px-2 py-1 hover:bg-red-100 rounded-lg"
+            onClick={handleDeleteUser}
+          >
             Delete Account <FiDelete className=" size-5" />
           </span>
           <span className=" flex items-center gap-2 text-red-700 cursor-pointer text-lg font-medium  p-2 hover:bg-red-100 rounded-lg">
