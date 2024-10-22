@@ -38,7 +38,7 @@ export default function Profile() {
         setFilePercentage(Math.round(progress));
       },
       (error) => {
-        setFileUploadError(true);
+        setFileUploadError(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
@@ -66,7 +66,7 @@ export default function Profile() {
             alt={currentUser.username}
             onClick={() => fileRef.current.click()}
             className=" rounded-full size-24 object-cover cursor-pointer self-center "
-          />{" "}
+          />
           <p className="text-sm self-center">
             {fileUploadError ? (
               <span className="text-red-700">
