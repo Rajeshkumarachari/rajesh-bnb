@@ -141,6 +141,25 @@ export default function Profile() {
       console.log(error);
     }
   };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className=" bg-slate-50 w-[40%] my-4  mx-auto rounded-lg shadow-md">
       <div className=" pb-9">
@@ -265,11 +284,14 @@ export default function Profile() {
                 >
                   <p>{listing.name}</p>
                 </Link>
-                <div className=" flex flex-col items-center">
-                  <button className="  text-orange-700 text-base flex items-center gap-2 ">
+                <div className=" flex flex-col items-center gap-1">
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className="  text-orange-700 hover:bg-red-100 rounded-md p-1 text-base flex items-center gap-2 "
+                  >
                     Delete <CiCircleRemove className=" size-5" />
                   </button>
-                  <button className="flex items-center gap-2  text-green-700 text-base">
+                  <button className="flex items-center gap-2 hover:bg-green-100 p-2 rounded-md  text-green-700 text-base">
                     Edit <CiEdit className=" size-5" />
                   </button>
                 </div>
