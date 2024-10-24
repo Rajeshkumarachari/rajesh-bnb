@@ -4,7 +4,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { PiListChecksFill } from "react-icons/pi";
 import { TiDeleteOutline } from "react-icons/ti";
