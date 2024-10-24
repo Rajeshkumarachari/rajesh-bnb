@@ -275,12 +275,12 @@ export default function Profile() {
                   <img
                     src={listing.imageUrls[0]}
                     alt="listing-cover"
-                    className=" size-16 object-contain"
+                    className=" size-16 object-contain rounded-lg"
                   />
                 </Link>
                 <Link
-                  to={`/listing/${listing._id}`}
-                  className="flex-1 text-slate-500 font-medium  hover:underline text-base truncate"
+                  to={`/update-listing/${listing._id}`}
+                  className="flex-1 text-slate-500  hover:underline text-sm truncate"
                 >
                   <p>{listing.name}</p>
                 </Link>
@@ -291,9 +291,11 @@ export default function Profile() {
                   >
                     Delete <CiCircleRemove className=" size-5" />
                   </button>
-                  <button className="flex items-center gap-2 hover:bg-green-100 p-2 rounded-md  text-green-700 text-base">
-                    Edit <CiEdit className=" size-5" />
-                  </button>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className="flex items-center gap-2 hover:bg-green-100 p-2 rounded-md  text-green-700 text-base">
+                      Edit <CiEdit className=" size-5" />
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}
