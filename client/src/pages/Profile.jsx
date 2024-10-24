@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { FiDelete } from "react-icons/fi";
 import { IoMdLogOut } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
+import { CiEdit } from "react-icons/ci";
+import { CiCircleRemove } from "react-icons/ci";
+import { MdExpandMore } from "react-icons/md";
 import {
   getDownloadURL,
   getStorage,
@@ -31,6 +34,8 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -120,6 +125,20 @@ export default function Profile() {
       dispatch(logOutUserSuccess(data));
     } catch (error) {
       dispatch(logOutUserFailure(error.message));
+    }
+  };
+  const handleShowListings = async () => {
+    try {
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+      console.log(error);
     }
   };
   return (
@@ -214,6 +233,50 @@ export default function Profile() {
             {updateSuccess ? "Updated successfully" : ""}
           </p>
         </div>
+        <button
+          onClick={handleShowListings}
+          className=" text-green-700 w-full justify-center hover:bg-green-100 p-3 text-lg  flex items-center "
+        >
+          Show Listings <MdExpandMore className=" size-8" />
+        </button>
+        <p className=" text-orange-700 mt-4">
+          {showListingsError ? "Error showing listings" : ""}
+        </p>
+        {userListings && userListings.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <h1 className=" text-center mt-7 text-2xl font-semibold">
+              Your listings
+            </h1>
+            {userListings.map((listing) => (
+              <div
+                className="border flex rounded-lg p-3 justify-between items-center gap-3"
+                key={listing._id}
+              >
+                <Link to={`/listing/${listing._id}`} className="">
+                  <img
+                    src={listing.imageUrls[0]}
+                    alt="listing-cover"
+                    className=" size-16 object-contain"
+                  />
+                </Link>
+                <Link
+                  to={`/listing/${listing._id}`}
+                  className="flex-1 text-slate-500 font-medium  hover:underline text-base truncate"
+                >
+                  <p>{listing.name}</p>
+                </Link>
+                <div className=" flex flex-col items-center">
+                  <button className="  text-orange-700 text-base flex items-center gap-2 ">
+                    Delete <CiCircleRemove className=" size-5" />
+                  </button>
+                  <button className="flex items-center gap-2  text-green-700 text-base">
+                    Edit <CiEdit className=" size-5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
