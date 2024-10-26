@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ShimmerEffect from "./ShimmerEffect";
 import ListingItem from "./ListingItem";
+import { MdExpandMore } from "react-icons/md";
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -17,7 +18,7 @@ export default function Search() {
   const [listings, setListings] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(listings);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -49,9 +50,15 @@ export default function Search() {
     }
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -98,6 +105,19 @@ export default function Search() {
     urlParams.set("order", sidebarData.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
 
   return (
@@ -221,6 +241,14 @@ export default function Search() {
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} className="" />
             ))}
+          {showMore && (
+            <button
+              className="text-center justify-center w-fit text-blue-700 font-semibold flex hover:bg-blue-100 p-2 rounded-lg items-center hover:underline "
+              onClick={onShowMoreClick}
+            >
+              Show more <MdExpandMore className=" size-6" />
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -252,7 +252,7 @@ export default function CreateListing() {
             <div className="flex items-center gap-2">
               <input
                 type="number"
-                id="bathroom"
+                id="bathrooms"
                 min={1}
                 max={10}
                 required
