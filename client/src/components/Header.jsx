@@ -62,7 +62,7 @@ export default function Header() {
               </li>
             </Link>
             <Link to="about">
-              <li className="hidden sm:inline text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-3xl cursor-pointer">
+              <li className="mr-5 hidden sm:inline text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-3xl cursor-pointer">
                 About
               </li>
             </Link>

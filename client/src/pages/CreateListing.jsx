@@ -336,6 +336,7 @@ export default function CreateListing() {
               </p>
             )}
           </p>
+
           {formData.imageUrls.length > 0 &&
             formData.imageUrls.map((url, index) => (
               <div

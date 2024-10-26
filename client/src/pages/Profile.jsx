@@ -195,6 +195,11 @@ export default function Profile() {
               ""
             )}
           </p>
+          <progress
+            className="  progress progress-success w-56 flex mx-[30%] "
+            value={filePercentage}
+            max="100"
+          ></progress>
           <hr className=" my-5 w-[50%] flex justify-center items-center mx-auto border-slate-400" />
           <input
             type="text"
