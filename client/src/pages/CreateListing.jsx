@@ -146,7 +146,7 @@ export default function CreateListing() {
     <main className=" p-3 mt-5 pb-20 rounded-lg shadow-sm max-w-4xl mx-auto bg-slate-50">
       <h1 className="flex items-center hover:bg-slate-200 justify-center gap-2 text-2xl font-medium text-center my-5">
         <PiListChecksFill className=" size-8 text-rose-500" />
-        Create a Listing
+        Create a Listings
       </h1>
       <hr className=" my-5 w-[25%] mx-auto border-gray-300 " />
       <form
